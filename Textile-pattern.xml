@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Textile Encoding Initiative Playground</title>
+            <respStmt>
+               <resp>Conceptualisation and encoding</resp>
+               <name>Elisa Cugliana</name>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <p>Experimental file, version 0.1.</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Facsimile of a printed knitting pattern with handwritten annotations</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <p>TEI records the document and its evidence; Textile elements model
+            executable knitting instructions. </p>
+         
+         <classDecl>
+            <taxonomy xml:id="operations">
+               <category xml:id="op-knit">
+                  <catDesc>Knit</catDesc>
+               </category>
+               <category xml:id="op-purl">
+                  <catDesc>Purl</catDesc>
+               </category>
+               <category xml:id="op-k2tog">
+                  <catDesc>Knit two together</catDesc>
+               </category>
+               <category xml:id="op-yo">
+                  <catDesc>Yarn over</catDesc>
+               </category>
+            </taxonomy>
+            
+            <taxonomy xml:id="marginalia">
+               <category xml:id="adaptation">
+                  <catDesc>These annotations regard the adaptation of the pattern based on gauge or size differences</catDesc>
+               </category>
+               <category xml:id="specification">
+                  <catDesc>These annotations specify aspects of the pattern further</catDesc>
+               </category>
+               <category xml:id="corrections">
+                  <catDesc>These annotations correct mistakes or inconsistencies in the pattern</catDesc>
+               </category>
+               <category xml:id="counting">
+                  <catDesc>These annotations reflect counting practices of the knitter, for example when she is keeping track of the point she got to</catDesc>
+               </category>
+            </taxonomy>
+         </classDecl>
+      </encodingDesc>
+      
+      <profileDesc>
+         <handNotes>
+            <handNote xml:id="hand1">Elisa Cugliana</handNote>
+         </handNotes>
+      </profileDesc>
+   </teiHeader>
+   <facsimile>
+      <surface xml:id="pattern-page1">
+         <graphic url="pulli.png"/>
+         <!-- Add size and coordinates -->
+         <zone xml:id="zone-back"/>
+      </surface>
+   </facsimile>
+   <text>
+      <body>
+         <div type="document">
+            <note ana="#adaptation" corresp="#infos" hand="#hand1">Nele, da sotto fino inizio ascella = 42 <lb/>Da inizio ascella a spalla dritto 18 obliquo 20</note>
+            <note ana="#adaptation" hand="#hand1"><formula>62:108=21:x = 37</formula></note>
+            
+            <div type="infos" xml:id="infos">
+               <p>
+                  <hi rend="bold">MATERIALS</hi> One pair each Nod. 5 mm and 6 mm knitting pins. 4
+                  markers. </p>
+
+               <p>
+                  <hi rend="bold">SIZES:</hi> 80 85 90 95 100 105 110 cm.</p>
+               <p>50g balls: 18 18 19 21 22 24 25</p>
+               
+               <p>
+                  <hi rend="bold">MEASUREMENTS:</hi>
+                  Length of centre back below neckband:
+                  68 68 69 72 73 76 76 cm.
+                  Sleeve to armhole: 
+                  46 47 48 49 50 51 52 cm.
+                  <hi rend="bold">N.B.:</hi> Sleeve is 2 cm longer than normal to allow for deopped shoulders
+               </p>
+               
+               <div type="diplomatic-transcription" xml:id="back-source">
+                  <head><hi rend="bold">BACK:</hi></head>
+                  <note ana="#adaptation" hand="#hand1" corresp="#cast-on-back"><hi rend="strikethrough">104</hi> <hi rend="strikethrough">113</hi> -> 107, perchè sennò non è divisibile</note>
+                  <note ana="#adaptation" hand="#hand1" corresp="#cast-on-back">96 slighyly smaller or 102</note>
+                  <p>With 5 mm pins <seg type="op" corresp="#cast-on-back">cast on 61 (67: 67: 73: 73: 79: 79) sts</seg> and <seg type ="op" corresp="#rib-back">work in rib</seg> as fol:</p>
+                  <p><hi rend="bold">1st row:</hi>K1, *p1, k1, rep from * to end.</p>
+                  <p><hi rend="bold">2nd row:</hi>P1, *k1, p1, rep from * to end.</p>
+                  <p>Rep these 2 rows until work meas 6 cm, fin with a first row.</p><note ana="#specification" hand="#hand1" corresp="#rib-back">(17 rows)</note>
+               </div>
+               
+               
+               
+               <div type="operational" xml:id="back-model">
+  
+
+                  <piece xml:id="piece-back" type="back">
+                     <castOn xml:id="cast-on-back" count="61" unit="stitch"/>
+                     <repeat xml:id="rib-back" count="6" unit="cm">
+                        <!-- here my annotation says it's 17 rows. How to integrate documentary aspects as operations? -->
+
+                        <row xml:id="row1" n="1" side="rs">
+                           <stitch type="knit" count="1" consumes="1" produces="1" ana="#op-knit"/>
+                           <repeat xml:id="rib-row1" count="to-end" unit="row">
+                              <stitch type="purl" count="1" consumes="1" produces="1" ana="#op-purl"/>
+                              <stitch type="knit" count="1" consumes="1" produces="1" ana="#op-knit"/>
+                           </repeat>
+                        </row>
+
+                        <row xml:id="row2" n="2" side="ws">
+                           <stitch type="purl" count="1" consumes="1" produces="1" ana="#op-purl"/>
+                           <repeat xml:id="rib-row2" count="to-end" unit="row">
+                              <stitch type="knit" count="1" consumes="1" produces="1" ana="#op-knit"/>
+                              <stitch type="purl" count="1" consumes="1" produces="1" ana="#op-purl"/>
+                           </repeat>
+                        </row>
+
+                     </repeat>
+
+
+                     <row xml:id="rowBridge">
+                        <!-- here again based on annotations I can say it is row 18 -->
+                        <repeat corresp="#rib-row1 OR #rib-row2">
+                           <!-- how to do this? -->
+                           <!-- should I write this again?? -->
+                           <!-- at half you need to increase 1 by lift one method  -->
+                        </repeat>
+                     </row>
+
+
+
+
+                  </piece>
+               </div>
+            </div>
+         </div>
+      </body>
+   </text>
+</TEI>
