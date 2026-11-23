@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+	xmlns="http://relaxng.org/ns/structure/1.0"
+	xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+	datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+	<start>
+		<element name="pattern">
+			<element name="metadata"><text/></element>
+			<element name="pattern_grammar">
+				<element name="gauge_specs">
+					<element name="gauge">
+						<text></text>
+						<attribute name="stitches">
+							<data type="decimal"/>
+						</attribute>
+						<attribute name="unit">
+							<choice>
+								<value>inch</value>
+								<value>centimeter</value>
+							</choice>
+						</attribute>
+					</element>
+					<oneOrMore>
+						<element name="needle">
+							<attribute name="size"><text/></attribute>
+							<attribute name="system">
+								<choice>
+									<value>US</value>
+									<value>metric</value>
+								</choice>
+							</attribute>
+							<attribute name="components">
+									<data type="anyURI"/>
+							</attribute>
+						</element>
+					</oneOrMore>
+				</element>
+				<element name="stitch_patterns">
+					<oneOrMore>
+						<ref name="element.pattern"/>
+					</oneOrMore>
+				</element>
+				<element name="size_specs">
+					<element name="size">
+						<oneOrMore>
+							<element name="metric">
+							<oneOrMore>
+								<element name="extent">
+								<attribute name="type">
+									<choice>
+										<value>circumference</value>
+										<value>length</value>
+										<value>width</value>
+									</choice>
+								</attribute>
+								<attribute name="unit">
+									<choice>
+										<value>inch</value>
+										<value>cm</value>
+									</choice>
+								</attribute>
+								<attribute name="n">
+									<data type="decimal"></data>
+								</attribute>
+							</element>
+							</oneOrMore>
+							<optional><element name="note"><text/></element></optional>
+							<attribute name="type"><text/></attribute>
+						</element>
+						</oneOrMore>
+						<attribute name="xml:id"><data type="ID"/></attribute>
+					</element>
+				</element>
+			</element>
+			<element name="process">
+				<oneOrMore>
+					<element name="component">
+						<element name="head"><ref name="model.prose"></ref></element>
+						<element name="componentDesc">
+							<oneOrMore><ref name="element.p"></ref></oneOrMore>
+						</element>
+						<element name="stepGroup">
+							<oneOrMore><ref name="element.step"/></oneOrMore>
+						</element>
+						<attribute name="type">
+							<choice>
+								<value>sleeve</value>
+								<value>cuff</value>
+								<value>collar</value>
+								<value>body</value>
+								<value>front-left</value>
+								<value>front-right</value>
+							</choice>
+						</attribute>
+					</element>
+				</oneOrMore>
+			</element>
+		</element>
+	</start>
+	<define name="element.pattern">
+		<element name="pattern">
+			<choice>
+				<oneOrMore><ref name="element.repeat"></ref></oneOrMore>
+				<ref name="model.prose"/>
+			</choice>
+			<attribute name="xml:id"><data type="ID"/></attribute>
+		</element>
+	</define>
+	<define name="element.repeat">
+		<element name="repeat">
+			<choice>
+				<oneOrMore><ref name="element.row"/></oneOrMore>
+				<oneOrMore><ref name="model.formalPart"/></oneOrMore>
+			</choice>
+			<attribute name="n"><data type="integer"></data></attribute>
+		</element>
+	</define>
+	<define name="element.row">
+		<element name="row">
+			<oneOrMore>
+				<choice>
+					<ref name="model.formalPart"/>
+					<ref name="model.prose"/>
+				</choice>
+			</oneOrMore>
+			<attribute name="n"><data type="integer"/></attribute>
+		</element>
+	</define>
+	<define name="element.para">
+		<element name="para"><ref name="model.prose"/></element>
+	</define>
+	<define name="model.prose">
+		<oneOrMore>
+			<choice>
+				<text/>
+				<ref name="element.hi"></ref>
+			</choice>
+		</oneOrMore>
+	</define>
+	<define name="element.hi">
+		<element name="hi"><text/></element>
+	</define>
+	<define name="element.step">
+		<element name="step">
+			<element name="formal">
+				<ref name="model.formalPart"/>
+			</element>
+			<element name="prose">
+				<oneOrMore><ref name="element.para"/></oneOrMore>
+			</element>
+			<attribute name="xml:id">
+				<data type="ID"></data>
+			</attribute>
+		</element>
+	</define>
+	<define name="model.formalPart">
+		<oneOrMore>
+			<choice>
+				<ref name="element.co"/>
+				<ref name="element.rib"/>
+				<ref name="element.k"/>
+				<ref name="element.p"/>
+			</choice>
+		</oneOrMore>
+	</define>
+	<define name="element.p">
+		<element name="p">
+			<empty></empty>
+		</element>
+	</define>
+	<define name="element.k">
+		<element name="k">
+			<empty></empty>
+		</element>
+	</define>
+	<define name="element.co">
+		<element name="co">
+			<attribute name="n">
+				<data type="integer"/>
+			</attribute>
+		</element>
+	</define>
+	<define name="element.rib">
+		<element name="rib">
+			<attribute name="type"></attribute>
+			<attribute name="extent"><data type="integer"/></attribute>
+		</element>
+	</define>
+	<define name="element.sizeRef">
+		<element name="sizeRef">
+			<attribute name="ref">
+				<data type="anyURI"></data>
+			</attribute>
+		</element>
+	</define>	
+</grammar>

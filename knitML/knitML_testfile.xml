@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="knitML.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<pattern>
+	<metadata>
+		
+	</metadata>
+	<pattern_grammar>
+		<gauge_specs>
+			<gauge stitches="6.4" unit="inch"></gauge>
+			<needle size="3mm" system="metric" components="#cuff #hem #neckline"/>
+			<needle size="5mm" system="metric" components="#body #sleeve"/>
+		</gauge_specs>
+		<stitch_patterns>
+			<pattern xml:id="stockinette">
+				<repeat>
+					<row n="1"><repeat><k/></repeat></row> <!-- values for n could also be even/odd or w and r -->
+					<row n="2"><repeat><p/></repeat></row>
+				</repeat>
+			</pattern>
+			<pattern xml:id="cable_caston">[instructions for cable cast on; <ref url="link">link to online source</ref>]</pattern>
+		</stitch_patterns>
+		<size_specs>
+			<size xml:id="small">
+				<metric type="bust">
+					<extent type="circumference" unit="cm" n="100"/>
+					<note></note>
+				</metric>
+				<metric type="waist">
+					<extent type="circumference" unit="cm" n="100"/>
+					<note></note>
+				</metric>
+				<metric type="sleeve">
+					<extent type="circumference" unit="cm" n="24"/>
+					<extent type="length" unit="cm" n="35"/>
+				</metric>
+			</size>
+		</size_specs>
+	</pattern_grammar>
+	<process>
+		<component type="sleeve">
+			<head>Sleeves</head>
+			<componentDesc>
+				<p>The sleeves are knit from the cuff up with regular paired increases...</p>
+			</componentDesc>
+			<stepGroup>
+				<step type="cast_on">
+				<formal>
+					<co n=""></co>
+				</formal>
+				<prose><para>Cast on <sizeRef ref="#small">24</sizeRef>, <sizeRef ref="#medium">28</sizeRef>, <sizeRef ref="#large">32</sizeRef> stitches using <patternRef ref="#cable_caston">cable caston</patternRef>. Join without twisting to work in the round.</para></prose> 
+			</step> <!-- maybe better with just @n? -->
+			<step type="cuff" mode="round"></step>
+			<step type="main" mode="round"></step>
+		</stepGroup>
+		</component>
+		<component type="body">
+			<head>Body</head>
+			<componentDesc>
+				<p>The body is worked from the bottom up in one piece.</p>
+			</componentDesc>
+			<stepGroup>
+				<step type="cast_on" mode="flat">
+					<formal>
+						<co n=""></co>
+					</formal>
+					<prose><para>Cast on <sizeRef ref="#small">240</sizeRef>, <sizeRef ref="#medium">280</sizeRef>, <sizeRef ref="#large">300</sizeRef> stitches using <patternRef ref="#cable_caston">cable caston</patternRef>.</para></prose>
+				</step>
+				<step type="hem" mode="flat">
+					<formal>
+						<rib type="k2p1" extent="2"/>
+					</formal>
+				</step>
+			</stepGroup>
+		</component>
+	</process>
+</pattern>
